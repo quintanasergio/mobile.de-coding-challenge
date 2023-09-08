@@ -1,0 +1,30 @@
+<template>
+    <div class="slds-theme_default form-container">
+        <div class="slds-form contact-form">
+            
+            <lightning-input
+                name="FirstName"
+                value={newContact.FirstName}
+                label="First Name"
+                onchange={handleInputChange}
+            ></lightning-input>
+            <lightning-input
+                name="LastName"
+                value={newContact.LastName}
+                label="Last Name"
+                onchange={handleInputChange}
+            ></lightning-input>
+            <lightning-input
+                name="Email"
+                value={newContact.Email}
+                label="Email"
+                onchange={handleInputChange}
+                data-id="txtEmailAddress"
+            ></lightning-input>
+        </div>
+        <div class="slds-m-top_medium">
+            <button class="slds-button slds-button_brand" onclick={handleSave} disabled={isSaveDisabled}>Save</button>
+            <button class="slds-button slds-button_neutral" onclick={closeComponent}>Cancel</button>
+        </div>
+    </div>
+</template>

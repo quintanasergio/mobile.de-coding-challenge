@@ -1,0 +1,68 @@
+<template>
+    <div>
+        <lightning-card title="List of Account's Contacts">
+            <!-- Account List -->
+            <div class="slds-p-horizontal_small account-list">
+                <lightning-combobox
+                    name="accountSelect"
+                    label="Select an Account"
+                    value={selectedAccountId}
+                    options={accounts}
+                    onchange={handleAccountChange}
+                    class="account-picklist"
+                ></lightning-combobox>
+
+                <lightning-button label="Clear" icon-name="utility:clear" icon-position="right" class="slds-m-left_x-small" onclick={clear}></lightning-button>
+            </div>
+        </lightning-card>
+
+        <!-- Contact Table -->
+        <template if:true={selectedAccountId}>
+            <div class="slds-grid slds-wrap contact-section">
+                <div class="slds-col contact-list-section">
+                    <lightning-card title={contactListTitle}>
+                        <div class="slds-p-horizontal_small contact-list">
+                            <div class="number-of-contacts">{numberOfContacts}</div>
+                            <table class="slds-table slds-table_bordered contact-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact Level</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={contacts} for:item="contact">
+                                        <tr key={contact.Id}>
+                                            <td>{contact.Name}</td>
+                                            <td>{contact.Email}</td>
+                                            <td>{contact.Level__c}</td>
+                                            <td>
+                                                <lightning-button label="Edit" icon-name="utility:edit" icon-position="right" class="slds-m-left_x-small" data-contact-id={contact.Id} onclick={editContact}></lightning-button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </lightning-card>
+                </div>
+                <div class="slds-col edit-contact-section">
+                    <template if:true={selectedContact}>
+                        <lightning-card title="Contact Edit">
+                            <c-contact-edit
+                                contact={selectedContact}
+                                onclose={handleContactEditClose}
+                                onupdatecontact={handleUpdateContact}>
+                            </c-contact-edit>
+                        </lightning-card>
+                    </template>
+                </div>
+
+            </div>
+        </template>
+        
+
+    </div>
+</template>
